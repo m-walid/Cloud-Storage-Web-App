@@ -1,4 +1,4 @@
-# Cloud Storage
+# Cloud Storage Web App
 A cloud storage web app that includes three user-facing features:
 1. **Simple File Storage:** Upload/download/remove files
 2. **Note Management:** Add/update/remove text notes
