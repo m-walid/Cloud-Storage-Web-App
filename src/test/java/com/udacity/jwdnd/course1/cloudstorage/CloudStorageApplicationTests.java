@@ -200,6 +200,4 @@ class CloudStorageApplicationTests {
 
 	}
 
-
-
 }
