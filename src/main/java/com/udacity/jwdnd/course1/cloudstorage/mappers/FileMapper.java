@@ -25,10 +25,13 @@ public interface FileMapper {
 
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "fileid")
     @Insert("INSERT INTO FILES (filename, contenttype, filesize, userid, filedata) VALUES (#{name}, #{contentType}, #{size}, #{userId}, #{data})")
-    Optional<Integer> add(File file);
+    Integer add(File file);
 
     @Delete("DELETE FROM FILES WHERE fileid = #{id}")
     void delete(Integer id);
 
 
+    @ResultMap("fileResult")
+    @Select("SELECT * FROM FILES WHERE filename = #{fileName} AND userid = #{userId}")
+    Optional<File> getFileByNameAndUserId(String fileName, Integer userId);
 }

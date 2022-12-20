@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,6 +37,11 @@ public class AuthenticationService implements AuthenticationProvider {
         return hashedPassword.equals(user.getPassword());
     }
 
+    public User getCurrentUser() {
+        return userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new AuthenticationException("Unable to get current user") {
+                });
+    }
     @Override
     public boolean supports(Class<?> aClass) {
         return aClass.equals(UsernamePasswordAuthenticationToken.class);
