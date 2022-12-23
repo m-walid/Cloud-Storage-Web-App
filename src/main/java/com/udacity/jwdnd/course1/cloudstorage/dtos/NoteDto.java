@@ -1,18 +1,9 @@
-package com.udacity.jwdnd.course1.cloudstorage.models;
+package com.udacity.jwdnd.course1.cloudstorage.dtos;
 
-public class Note{
+public class NoteDto {
     private Integer id;
     private String title;
     private String description;
-    private Integer userId;
-
-    public Note(String title, String description, Integer userId) {
-        this.title = title;
-        this.description = description;
-        this.userId = userId;
-    }
-    public Note() {
-    }
 
     public Integer getId() {
         return id;
@@ -36,13 +27,5 @@ public class Note{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 }

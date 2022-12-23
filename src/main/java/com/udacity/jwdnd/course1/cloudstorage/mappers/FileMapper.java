@@ -20,7 +20,7 @@ public interface FileMapper {
     Optional<File> findById(Integer id);
 
     @ResultMap("fileResult")
-    @Select("SELECT * FROM FILES WHERE userid = #{userId}")
+    @Select("SELECT * FROM FILES WHERE userid = #{userId} ORDER BY fileid DESC")
     File[] findByUserId(Integer userId);
 
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "fileid")

@@ -16,7 +16,7 @@ public interface CredentialMapper {
     Optional<Credential> findById(Integer id);
 
     @ResultMap("credentialResult")
-    @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userId}")
+    @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userId} ORDER BY credentialid DESC")
     Credential[] findByUserId(Integer userId);
 
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "credentialid")

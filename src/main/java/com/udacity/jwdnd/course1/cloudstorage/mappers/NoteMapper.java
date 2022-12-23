@@ -18,12 +18,12 @@ public interface NoteMapper {
     Optional<Note> findById(Integer id);
 
     @ResultMap("noteResult")
-    @Select("SELECT * FROM NOTES WHERE userid = #{userId}")
+    @Select("SELECT * FROM NOTES WHERE userid = #{userId} ORDER BY noteid DESC")
     Note[] findByUserId(Integer userId);
 
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "noteid")
     @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) VALUES (#{title}, #{description}, #{userId})")
-    Optional<Integer> add(Note note);
+    Integer add(Note note);
 
     @Delete("DELETE FROM NOTES WHERE noteid = #{id}")
     void delete(Integer id);
