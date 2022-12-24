@@ -1,22 +1,30 @@
-package com.udacity.jwdnd.course1.cloudstorage.models;
+package com.udacity.jwdnd.course1.cloudstorage.dtos;
 
-public class Credential{
+public class CredentialDto {
+
     private Integer id;
     private String url;
     private String username;
-    private String key;
     private String password;
-    private Integer userId;
-    
+    private String decryptedPassword;
 
-    public Credential(String url, String username, String key, String password, Integer userId) {
+    public CredentialDto(Integer id, String url, String username, String password, String decryptedPassword) {
+        this.id = id;
         this.url = url;
         this.username = username;
-        this.key = key;
         this.password = password;
-        this.userId = userId;
+        this.decryptedPassword = decryptedPassword;
     }
-    public Credential() {
+
+    public CredentialDto() {
+    }
+
+    public String getDecryptedPassword() {
+        return decryptedPassword;
+    }
+
+    public void setDecryptedPassword(String decryptedPassword) {
+        this.decryptedPassword = decryptedPassword;
     }
 
     public Integer getId() {
@@ -43,27 +51,11 @@ public class Credential{
         this.username = username;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 }
