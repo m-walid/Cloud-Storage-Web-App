@@ -19,6 +19,9 @@
         <div th:if="${errorMessage}" class="mt-1 alert alert-danger">
             <span th:text="${errorMessage}">Example Home Error Message</span>
         </div>
+        <div th:if="${successMessage}" id="success-msg" class="mt-1 alert alert-dark" th:text="${successMessage}">
+            success message.
+        </div>
         <nav style="clear: right;">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-files-tab" data-toggle="tab" href="#nav-files" role="tab"

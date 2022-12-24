@@ -26,6 +26,7 @@ public class FileController {
     public String uploadFile(@RequestParam("fileUpload") MultipartFile fileUpload, RedirectAttributes redirectAttributes) {
         try {
             fileService.saveFile(fileUpload);
+            redirectAttributes.addFlashAttribute("successMessage", "File uploaded successfully");
         }
         catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
@@ -37,6 +38,7 @@ public class FileController {
     public String deleteFile(@PathVariable("fileId") Integer fileId, RedirectAttributes redirectAttributes) {
         try {
             fileService.deleteFile(fileId);
+            redirectAttributes.addFlashAttribute("successMessage", "File deleted successfully");
         }
         catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());

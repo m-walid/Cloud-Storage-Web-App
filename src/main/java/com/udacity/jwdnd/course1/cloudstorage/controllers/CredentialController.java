@@ -23,6 +23,7 @@ public class CredentialController {
     public String addCredential(@ModelAttribute("credentialDto") CredentialDto credentialDto, RedirectAttributes redirectAttributes) {
         try{
             this.credentialService.addOrUpdate(credentialDto);
+            redirectAttributes.addFlashAttribute("successMessage", "Credential saved successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -35,6 +36,7 @@ public class CredentialController {
     public String deleteCredential(@PathVariable("credentialId") Integer credentialId, RedirectAttributes redirectAttributes) {
         try{
             this.credentialService.delete(credentialId);
+            redirectAttributes.addFlashAttribute("successMessage", "Credential deleted successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

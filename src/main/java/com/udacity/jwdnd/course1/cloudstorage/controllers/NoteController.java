@@ -23,6 +23,7 @@ public class NoteController {
     public String addNote(@ModelAttribute("noteDto") NoteDto noteDto, RedirectAttributes redirectAttributes) {
         try {
             this.noteService.addOrUpdate(noteDto);
+            redirectAttributes.addFlashAttribute("successMessage", "Note saved successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -33,6 +34,7 @@ public class NoteController {
     public String deleteNote(@PathVariable("noteId") Integer noteId, RedirectAttributes redirectAttributes) {
         try {
             this.noteService.deleteNote(noteId);
+            redirectAttributes.addFlashAttribute("successMessage", "Note deleted successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
