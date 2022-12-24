@@ -157,7 +157,7 @@
                             <th style="width: 25%" scope="col">Password</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="credentials-body">
                         <tr th:object="${credential}" th:each="credential : ${credentials}">
                             <td class="d-flex align-items-center">
                                 <button type="button" class="credential-edit-btn btn btn-success mr-1"
@@ -171,9 +171,9 @@
                                     <input type="submit" class="credential-delete-btn btn btn-danger" value="Delete">
                                 </form>
                             </td>
-                            <th th:text="*{url}" scope="row">Example Credential URL</th>
-                            <td th:text="*{username}">Example Credential Username</td>
-                            <td th:text="*{password}">Example Credential Password</td>
+                            <th class="credential-url" th:text="*{url}" scope="row">Example Credential URL</th>
+                            <td class="credential-username" th:text="*{username}">Example Credential Username</td>
+                            <td class="credential-password" th:text="*{password}">Example Credential Password</td>
                         </tr>
                         </tbody>
                     </table>
@@ -194,25 +194,29 @@
                                     <input th:field="*{id}" type="hidden" name="credentialId" id="credential-id">
                                     <div class="form-group">
                                         <label for="credential-url" class="col-form-label">URL</label>
-                                        <input th:field="*{url}" type="text" name="url" class="form-control" id="credential-url"
+                                        <input th:field="*{url}" type="text" name="url" class="form-control"
+                                               id="credential-url"
                                                maxlength="100" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="credential-username" class="col-form-label">Username</label>
-                                        <input th:field="*{username}" type="text" name="username" class="form-control" id="credential-username"
+                                        <input th:field="*{username}" type="text" name="username" class="form-control"
+                                               id="credential-username"
                                                maxlength="30" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="credential-password" class="col-form-label">Password</label>
-                                        <input th:field="*{password}" type="text" name="password" class="form-control" id="credential-password"
+                                        <input th:field="*{password}" type="text" name="password" class="form-control"
+                                               id="credential-password"
                                                maxlength="30" required>
                                     </div>
                                     <button id="credentialSubmit" type="submit" class="d-none"></button>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button id="credential-save-changes" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">
+                                <button id="credential-close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="credential-save-changes" type="button" class="btn btn-primary"
+                                        onclick="$('#credentialSubmit').click();">
                                     Save changes
                                 </button>
                             </div>
@@ -246,6 +250,7 @@
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
             }
+
 
 
 
