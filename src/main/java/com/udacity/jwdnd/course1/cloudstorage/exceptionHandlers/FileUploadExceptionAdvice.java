@@ -1,7 +1,6 @@
-package com.udacity.jwdnd.course1.cloudstorage.exceptions;
+package com.udacity.jwdnd.course1.cloudstorage.exceptionHandlers;
 
 import org.apache.tomcat.util.http.fileupload.impl.SizeException;
-import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;

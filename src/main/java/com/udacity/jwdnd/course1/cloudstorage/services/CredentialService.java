@@ -1,6 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
 import com.udacity.jwdnd.course1.cloudstorage.dtos.CredentialDto;
+import com.udacity.jwdnd.course1.cloudstorage.exceptions.CredentialNotFoundException;
+import com.udacity.jwdnd.course1.cloudstorage.exceptions.UnAuthorizedUserException;
 import com.udacity.jwdnd.course1.cloudstorage.mappers.CredentialMapper;
 import com.udacity.jwdnd.course1.cloudstorage.models.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.models.User;
@@ -37,10 +39,10 @@ public class CredentialService {
     }
 
     public void update(CredentialDto credentialDto) {
-        Credential credential = this.credentialMapper.findById(credentialDto.getId()).orElseThrow(() -> new RuntimeException("Credential not found"));
+        Credential credential = this.credentialMapper.findById(credentialDto.getId()).orElseThrow(CredentialNotFoundException::new);
         User currentUser = authenticationService.getCurrentUser();
         if (!credential.getUserId().equals(currentUser.getId())) {
-            throw new RuntimeException("You are not authorized to update this credential");
+            throw new UnAuthorizedUserException();
         }
         String encryptedPassword = encryptionService.encryptValue(credentialDto.getPassword(), credential.getKey());
         credential.setUrl(credentialDto.getUrl());
@@ -58,10 +60,10 @@ public class CredentialService {
     }
 
     public void delete(Integer credentialId) {
-        Credential credential = this.credentialMapper.findById(credentialId).orElseThrow(() -> new RuntimeException("Credential not found"));
+        Credential credential = this.credentialMapper.findById(credentialId).orElseThrow(CredentialNotFoundException::new);
         User currentUser = authenticationService.getCurrentUser();
         if (!credential.getUserId().equals(currentUser.getId())) {
-            throw new RuntimeException("You are not authorized to delete this credential");
+            throw new UnAuthorizedUserException();
         }
         this.credentialMapper.delete(credentialId);
 

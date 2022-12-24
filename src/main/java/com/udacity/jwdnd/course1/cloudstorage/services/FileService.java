@@ -1,5 +1,9 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
+import com.udacity.jwdnd.course1.cloudstorage.exceptions.FileAlreadyExistsException;
+import com.udacity.jwdnd.course1.cloudstorage.exceptions.FileIsEmptyException;
+import com.udacity.jwdnd.course1.cloudstorage.exceptions.FileNotFoundException;
+import com.udacity.jwdnd.course1.cloudstorage.exceptions.UnAuthorizedUserException;
 import com.udacity.jwdnd.course1.cloudstorage.mappers.FileMapper;
 import com.udacity.jwdnd.course1.cloudstorage.models.File;
 import com.udacity.jwdnd.course1.cloudstorage.models.User;
@@ -21,15 +25,15 @@ public class FileService {
         this.authenticationService = authenticationService;
     }
 
-    public Integer saveFile(MultipartFile fileUpload) throws RuntimeException {
+    public Integer saveFile(MultipartFile fileUpload){
         User currentUser = authenticationService.getCurrentUser();
         if(fileUpload.isEmpty()) {
-            throw new RuntimeException("File is empty");
+            throw new FileIsEmptyException();
         }
         String fileName = StringUtils.cleanPath(fileUpload.getOriginalFilename());
 
         if(isFileAvailable(fileName, currentUser.getId())) {
-            throw new RuntimeException("File already exists");
+            throw new FileAlreadyExistsException();
         }
         try {
             File file = new File(
@@ -51,24 +55,24 @@ public class FileService {
     }
 
     public void deleteFile(Integer fileId) {
-        File file = this.fileMapper.findById(fileId).orElseThrow(() -> new RuntimeException("File not found"));
+        File file = this.fileMapper.findById(fileId).orElseThrow((FileNotFoundException::new));
         User currentUser = authenticationService.getCurrentUser();
         if(file.getUserId().equals(currentUser.getId())) {
             this.fileMapper.delete(fileId);
         }
         else {
-            throw new RuntimeException("You are not authorized to delete this file");
+            throw new UnAuthorizedUserException();
         }
     }
 
     public File getFile(Integer fileId) {
-        File file = this.fileMapper.findById(fileId).orElseThrow(() -> new RuntimeException("File not found"));
+        File file = this.fileMapper.findById(fileId).orElseThrow((FileNotFoundException::new));
         User currentUser = authenticationService.getCurrentUser();
         if(file.getUserId().equals(currentUser.getId())) {
             return file;
         }
         else {
-            throw new RuntimeException("You are not authorized to view this file");
+            throw new UnAuthorizedUserException();
         }
     }
 

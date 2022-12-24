@@ -27,8 +27,7 @@ public class FileController {
         try {
             fileService.saveFile(fileUpload);
         }
-        catch (RuntimeException e) {
-            System.out.println(e.getCause());
+        catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/home";
@@ -39,8 +38,7 @@ public class FileController {
         try {
             fileService.deleteFile(fileId);
         }
-        catch (RuntimeException e) {
-            System.out.println(e.getCause());
+        catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/home";
@@ -55,8 +53,7 @@ public class FileController {
                     .body(file.getData());
 
         }
-        catch (RuntimeException e) {
-            System.out.println(e.getCause());
+        catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
