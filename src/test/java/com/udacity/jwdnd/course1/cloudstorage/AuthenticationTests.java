@@ -56,6 +56,12 @@ public class AuthenticationTests {
         Assertions.assertTrue(webDriver.getCurrentUrl().contains("login"));
     }
 
+    @AfterEach
+    public void afterEach() {
+        if (webDriver != null) {
+            webDriver.quit();
+        }
+    }
     @AfterAll
     public static void afterAll() {
         if (webDriver != null) {
